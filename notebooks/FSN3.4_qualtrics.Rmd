@@ -1,0 +1,215 @@
+---
+title: "FSN3.4Nutrition feedback"
+author: "MC-OC"
+date: "6/5/2020"
+output:
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+    number_sections: TRUE
+    code_folding: hide
+    self_contained: TRUE 
+    fig_caption: TRUE
+    highlight: tango
+    theme: flatly
+  html_notebook: 
+    toc: TRUE
+    toc_float: TRUE
+    number_sections: TRUE
+    code_folding: hide
+    self_contained: TRUE 
+    fig_caption: TRUE
+    highlight: tango
+    theme: flatly
+  word_document:
+    toc: TRUE
+  pdf_document:
+    keep_tex: TRUE
+    number_sections: TRUE
+    toc: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, fig.height=6, fig.width=10)
+
+```
+
+# Packages
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(tidyverse)
+library(Hmisc)
+#library(reshape2)
+library(skimr)
+library(ggthemes)
+library(knitr)
+#library(gmodels)
+library(DT)
+library(ggalluvial)
+library(gridExtra)
+
+
+```
+
+
+```{r survey, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+responseDf  <- read_csv("Nutrition_module_FSN3.4.csv", skip = 3, col_names=FALSE )
+responseDfMetadata  <- read_csv("Nutrition_module_FSN3.4.csv", n_max = 1 )
+
+colnames(responseDf) <- colnames(responseDfMetadata)
+str(responseDf)
+head(responseDf)
+```
+
+```{r}
+#responseDf %>% select(ResponseId, Q1, Q2, Q3, Q4, Q5, Q6, Q7) %>% group_by(Q1, Q2) %>% count()
+#OR to order levels
+responseDf <- responseDf %>% mutate(
+  Q1 = factor(
+    Q1,
+    levels = c(
+      'Definitely not',
+      'Probably not',
+      'Might or might not',
+      'Probably yes',
+      'Definitely yes'
+    )
+  ),
+  Q2 = factor(
+    Q2,
+    levels = c(
+      'Definitely not',
+      'Probably not',
+      'Might or might not',
+      'Probably yes',
+      'Definitely yes'
+    )
+  ),
+  Q3 = factor(
+    Q3,
+    levels = c(
+      'Definitely not',
+      'Probably not',
+      'Might or might not',
+      'Probably yes',
+      'Definitely yes'
+    )
+  ),
+  Q4 = factor(
+    Q4,
+    levels = c(
+      'Definitely not',
+      'Probably not',
+      'Might or might not',
+      'Probably yes',
+      'Definitely yes'
+    )
+  ),
+  Q5 = factor(
+    Q5,
+        levels = c(
+      'Disagree',
+      'Neither agree nor disagree',
+      'Somewhat disagree',
+      'Somewhat agree',
+      'Agree',
+      'Strongly agree'
+    )
+  ),
+  Q7 = factor(
+    Q7,
+    levels = c(
+      'Disagree',
+      'Neither agree nor disagree',
+      'Somewhat disagree',
+      'Somewhat agree',
+      'Agree',
+      'Strongly agree'
+    )
+  )
+)
+
+```
+
+
+
+
+```{r}
+targetQuestions <- c('Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q7')
+```
+
+```{r, fig.height=8, fig.width=12}
+
+for (question in targetQuestions) {
+  responseCount <-
+    responseDf %>% group_by_(question = question) %>% count()
+  print(kable(responseCount))
+}
+
+responsePlot <- lapply(targetQuestions, function(question){
+    responseCount <-
+    responseDf %>% group_by_(question = question) %>% count()
+  p <-
+    ggplot(responseCount) + geom_bar(aes(x = question, y = n, fill = question), stat = "identity") +
+    ggtitle(responseDfMetadata[1,question]) +
+    ylim(0, 30) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    
+  p
+})
+
+gridExtra::grid.arrange(grobs=responsePlot)
+#print(responsePlot[1])
+responseDfPivot <-
+  responseDf %>% select(ResponseId, Q1, Q2, Q3, Q4, Q5, Q6, Q7) %>%
+  pivot_longer(targetQuestions, names_to = "question") %>%
+  left_join(pivot_longer(responseDfMetadata[1,targetQuestions], targetQuestions, names_to ="question", values_to="question_text"), "question")
+# 
+ggplot(responseDfPivot) + geom_bar(aes(x = value, fill = value), stats =
+                                     "identity") + facet_wrap(question ~ ., scales = "free_x") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+kable(responseDfPivot %>% group_by(question_text, value) %>% count() %>% pivot_wider(names_from=value, values_from ="n"))
+```
+
+```{r}
+# https://cran.r-project.org/web/packages/ggalluvial/vignettes/ggalluvial.html
+library(ggalluvial)
+
+responseDfAlluvial <- responseDf %>% group_by(Q1,Q2,Q3,Q4,Q5,Q7) %>% count()
+ggplot(responseDfAlluvial, aes(y=n, axis1=Q1, axis2=Q2, axis3=Q3, axis4=Q4)) + 
+  geom_alluvium( width = 1/12) +
+  geom_stratum(width = 1/12, fill = "black", color = "grey") +
+  geom_label(stat = "stratum", infer.label = TRUE) +
+  scale_fill_brewer(type = "qual", palette = "Set1") 
+
+
+
+ggplot(as.data.frame(UCBAdmissions),
+       aes(y = Freq, axis1 = Gender, axis2 = Dept)) +
+  geom_alluvium(aes(fill = Admit), width = 1/12) +
+  geom_stratum(width = 1/12, fill = "black", color = "grey") +
+  geom_label(stat = "stratum", infer.label = TRUE) +
+  scale_x_discrete(limits = c("Gender", "Dept"), expand = c(.05, .05)) +
+  scale_fill_brewer(type = "qual", palette = "Set1") +
+  ggtitle("UC Berkeley admissions and rejections, by sex and department")
+
+```
+
+```{r}
+
+responseQ6 <- responseDf %>% select(ResponseId, Q6) %>% mutate(Q6S=strsplit(str_replace_all(Q6, ",L", "\tL"), "\t")) %>% 
+  unnest(Q6S) %>% mutate(Q6S=factor(str_replace(str_extract(Q6S, "[lL]ecture [0-9]*"), "l", "L"), levels =paste("Lecture", seq(1,13))))
+
+
+countsQ6 <- responseQ6 %>% group_by(Q6S) %>% count() %>% arrange(desc(n)) 
+ggplot(countsQ6) + geom_bar(aes(x=Q6S, y=n), stat = "identity") + xlab("Lecture") + ylab("nunber of preferences")+ coord_flip() +
+ggtitle("Question 6")
+
+kable(countsQ6)
+
+```
