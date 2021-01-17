@@ -3,14 +3,17 @@
 \begin{document}
 \SweaveOpts{concordance=TRUE}
 
-Book review- Journal of the Irish Dental Association
+titel page, authors affiliations
+correspon author
+
+Book review Journal of the Irish Dental Association
 
 The Impact of Nutrition and Diet on Oral Health
 
 Zohoori, F. V., \& Duckworth, R. M. (Eds.). (2019). The Impact of Nutrition and Diet on Oral Health. Karger Medical and Scientific Publishers.
 
 
-The publication of this text contributes a valuable and timely contribution to the discipline of nutrition and oral health. The editors have compiled a wide range of relevant topics and produced an evidence- based monograph on nutrition that would be a welcome addition to university libraries, dental professionals, nutritionists and other health care workers with an interest in the impact of diet on health. It is particularly timely as there have been few recent updates to other classical textbooks on this subject and in the era of social media proliferation of ‘nutribabble’ with the latest dietary fads.
+The publication of this text contributes a valuable and timely contribution to the discipline of nutrition and oral health. The editors have compiled a wide range of relevant topics and produced an evidence- based monograph on nutrition that would be a welcome addition to university libraries, dental professionals, nutritionists and other health care workers with an interest in the impact of diet on health. It is particularly timely as there have been few recent updates to other well known textbooks on this subject and in the era of social media proliferation of ‘nutribabble’ with the latest dietary fads.
 
 The book is divided into 3 sections and each chapter is contributed by …with particular expertise or research interest
 
