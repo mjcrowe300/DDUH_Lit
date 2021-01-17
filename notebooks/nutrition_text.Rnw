@@ -5,6 +5,8 @@
 
 titel page, authors affiliations
 correspon author
+Check word count
+FOnt stlye for headings- latex template?
 
 Book review Journal of the Irish Dental Association
 
