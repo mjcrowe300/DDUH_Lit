@@ -1,17 +1,22 @@
+\documentclass{article}
+\usepackage[numbers]{natbib}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
 Book review- Journal of the Irish Dental Association
 
-The Impact of Nutrition and Diet on Oral Health 
+The Impact of Nutrition and Diet on Oral Health
 
-Zohoori, F. V., & Duckworth, R. M. (Eds.). (2019). The Impact of Nutrition and Diet on Oral Health. Karger Medical and Scientific Publishers.
+Zohoori, F. V., \& Duckworth, R. M. (Eds.). (2019). The Impact of Nutrition and Diet on Oral Health. Karger Medical and Scientific Publishers.
 
 
 The publication of this text contributes a valuable and timely contribution to the discipline of nutrition and oral health. The editors have compiled a wide range of relevant topics and produced an evidence- based monograph on nutrition that would be a welcome addition to university libraries, dental professionals, nutritionists and other health care workers with an interest in the impact of diet on health. It is particularly timely as there have been few recent updates to other classical textbooks on this subject and in the era of social media proliferation of ‘nutribabble’ with the latest dietary fads.
 
-The book is divided into 3 sections and each chapter is contributed by …with particular expertise or research interest 
+The book is divided into 3 sections and each chapter is contributed by …with particular expertise or research interest
 
-A chapter on probiotics I. interesting seems many 
+A chapter on probiotics I. interesting seems many
 
-there is a concise introduction to nutrigenomics 
+there is a concise introduction to nutrigenomics
 
 Omics-based precison dentistry, AI and machine learning for detection and prediction- little focus on evaluation of evidence in light of big data science- transition from NHST to modelling and simulation- Bayesian statistics
 Wearable devices- future of dietary estimation- systems approach – interidiscip diigtial
@@ -30,3 +35,5 @@ While no text can include all relevant areas, there are a few omissions that are
 The oral effects of the growth in the use of non-nutritive sweeteners or sugar polyols and starch hydrolysates as food ingredients is still under-researched(///blk- check See sugar book). Eating patterns and the anticariogenic effect of specific food constituents requires further reseaerch
 
 
+
+\end{document}
