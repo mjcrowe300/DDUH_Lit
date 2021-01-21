@@ -66,6 +66,14 @@ head(responseDf)
 ```
 
 ```{r}
+# Q6
+
+
+
+```
+
+
+```{r}
 #responseDf %>% select(ResponseId, Q1, Q2, Q3, Q4, Q5, Q6, Q7) %>% group_by(Q1, Q2) %>% count()
 #OR to order levels
 responseDf <- responseDf %>% mutate(
@@ -155,10 +163,13 @@ responsePlot <- lapply(targetQuestions, function(question){
     responseDf %>% group_by_(question = question) %>% count()
   p <-
     ggplot(responseCount) + geom_bar(aes(x = question, y = n, fill = question), stat = "identity") +
-    ggtitle(responseDfMetadata[1,question]) +
-    ylim(0, 30) +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
-    
+    ggtitle(responseDfMetadata[1, question]) +
+    ylim(0, 20) +
+    theme(
+      plot.title = element_text(color = "black", size = 9, face = "bold"),
+      axis.text.x = element_text(angle = 45, hjust = 1)
+    )
+  
   p
 })
 
@@ -201,7 +212,6 @@ ggplot(as.data.frame(UCBAdmissions),
 ```
 
 ```{r}
-
 responseQ6 <- responseDf %>% select(ResponseId, Q6) %>% mutate(Q6S=strsplit(str_replace_all(Q6, ",L", "\tL"), "\t")) %>% 
   unnest(Q6S) %>% mutate(Q6S=factor(str_replace(str_extract(Q6S, "[lL]ecture [0-9]*"), "l", "L"), levels =paste("Lecture", seq(1,13))))
 
@@ -211,5 +221,12 @@ ggplot(countsQ6) + geom_bar(aes(x=Q6S, y=n), stat = "identity") + xlab("Lecture"
 ggtitle("Question 6")
 
 kable(countsQ6)
+```
+
+
+```{r}
+countsQ6 <- responseQ6 %>% group_by(Q6S) %>% count() %>% arrange(desc(n))
+knitr::kable(countsQ6)
+# mutate(Percentage=count/sum(count)*100)
 
 ```
