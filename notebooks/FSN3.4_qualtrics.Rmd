@@ -155,10 +155,13 @@ responsePlot <- lapply(targetQuestions, function(question){
     responseDf %>% group_by_(question = question) %>% count()
   p <-
     ggplot(responseCount) + geom_bar(aes(x = question, y = n, fill = question), stat = "identity") +
-    ggtitle(responseDfMetadata[1,question]) +
-    ylim(0, 30) +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
-    
+    ggtitle(responseDfMetadata[1, question]) +
+    ylim(0, 20) +
+    theme(
+      plot.title = element_text(color = "black", size = 9, face = "bold"),
+      axis.text.x = element_text(angle = 45, hjust = 1)
+    )
+  
   p
 })
 
