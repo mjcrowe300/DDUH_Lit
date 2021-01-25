@@ -65,12 +65,6 @@ str(responseDf)
 head(responseDf)
 ```
 
-```{r}
-# Q6
-
-
-
-```
 
 
 ```{r}
@@ -225,8 +219,22 @@ kable(countsQ6)
 
 
 ```{r}
-countsQ6 <- responseQ6 %>% group_by(Q6S) %>% count() %>% arrange(desc(n))
-knitr::kable(countsQ6)
+
+#colnames(countsQ6) <- c("Lecture title", "Number of students", "Proportion of students")
+#countsQ6
+```
+
+
+```{r}
+countsQ6 <- responseQ6 %>% group_by(Q6S) %>% summarise(n=n()) %>% mutate(prop_n = n/sum(n)) %>% arrange(desc(n))
+ 
+
+knitr::kable(countsQ6, col.names= c ("Lecture title", "Number of students", "Proportion of students"), align = "c", digits=2,caption = "Table: Select the three lectures you found most interesting")
+
+
 # mutate(Percentage=count/sum(count)*100)
+# count doesnt work -needed to add summarise
+# titel Select 3 most interesting lectures'
+# how to add lecture titles string?
 
 ```
