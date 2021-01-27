@@ -65,6 +65,8 @@ str(responseDf)
 head(responseDf)
 ```
 
+
+
 ```{r}
 #responseDf %>% select(ResponseId, Q1, Q2, Q3, Q4, Q5, Q6, Q7) %>% group_by(Q1, Q2) %>% count()
 #OR to order levels
@@ -204,7 +206,6 @@ ggplot(as.data.frame(UCBAdmissions),
 ```
 
 ```{r}
-
 responseQ6 <- responseDf %>% select(ResponseId, Q6) %>% mutate(Q6S=strsplit(str_replace_all(Q6, ",L", "\tL"), "\t")) %>% 
   unnest(Q6S) %>% mutate(Q6S=factor(str_replace(str_extract(Q6S, "[lL]ecture [0-9]*"), "l", "L"), levels =paste("Lecture", seq(1,13))))
 
@@ -214,5 +215,26 @@ ggplot(countsQ6) + geom_bar(aes(x=Q6S, y=n), stat = "identity") + xlab("Lecture"
 ggtitle("Question 6")
 
 kable(countsQ6)
+```
+
+
+```{r}
+
+#colnames(countsQ6) <- c("Lecture title", "Number of students", "Proportion of students")
+#countsQ6
+```
+
+
+```{r}
+countsQ6 <- responseQ6 %>% group_by(Q6S) %>% summarise(n=n()) %>% mutate(prop_n = n/sum(n)) %>% arrange(desc(n))
+ 
+
+knitr::kable(countsQ6, col.names= c ("Lecture title", "Number of students", "Proportion of students"), align = "c", digits=2,caption = "Table: Select the three lectures you found most interesting")
+
+
+# mutate(Percentage=count/sum(count)*100)
+# count doesnt work -needed to add summarise
+# titel Select 3 most interesting lectures'
+# how to add lecture titles string?
 
 ```
