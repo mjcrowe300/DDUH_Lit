@@ -38,6 +38,7 @@ Anosmia loss of smell, dysgueisa (later taste)
 This publication is a valuable addition at a time when there appears to be an increasing awareness of the importance of the topic for the dental profession.
 
 Omitted
+Food based dietary guidelines out of date.....
 While no text can include all relevant areas, there are a few omissions that are worth mentioning. Given the importance of preventive approaches and dental disease more guidance on dietary intervention or assessment techniques, changes in nutrient requirements through the life cycle and specific effects of food- derived constituents in modifying the progression of dental caries would have been useful
 The oral effects of the growth in the use of non-nutritive sweeteners or sugar polyols and starch hydrolysates as food ingredients is still under-researched(///blk- check See sugar book). Eating patterns and the anticariogenic effect of specific food constituents requires further research. 
 A chapter on nutritional assessment, including anthropometrics, and dietary counselling would have been useful as most dentists do not have adequate knowledge about these practical skills and implications for oral health.
